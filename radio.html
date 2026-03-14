@@ -71,8 +71,24 @@
               </div>
               <div class="current-track-info">
                 <span class="current-track-label" data-stream-status>Ready to Play</span>
-                <strong class="current-track-title" data-current-track-title>&ndash;</strong>
-                <span class="current-track-artist" data-current-track-artist hidden></span>
+                <iframe
+                  class="widget-nowplay-frame"
+                  name="widgetNowPlayingFrame"
+                  title="Now playing from Sonic widget"
+                  loading="lazy"
+                  scrolling="no"
+                ></iframe>
+                <form
+                  class="widget-nowplay-form"
+                  data-widget-nowplay-form
+                  method="post"
+                  target="widgetNowPlayingFrame"
+                  action="https://sonic.onlineaudience.co.uk/cp/widgets/player/nowplay.php"
+                >
+                  <input type="hidden" name="rsys" value="scv26" />
+                  <input type="hidden" name="port" value="8264" />
+                  <input type="hidden" name="NoCache" value="0" data-widget-nowplay-cache />
+                </form>
               </div>
             </div>
 
@@ -83,33 +99,16 @@
 
             <div class="btn-row btn-row-left">
               <button class="btn btn-primary player-play-btn" data-audio-toggle data-play-text="&#9654;&#xFE0E;  Play Live" data-pause-text="&#9646;&#9646;  Pause" type="button">&#9654;&#xFE0E;  Play Live</button>
-              <button class="btn btn-ghost" data-open-live-embed type="button">Watch TikTok Live</button>
-            </div>
-
-            <div class="song-history">
-              <div class="song-history-head">
-                <span>Recently Played</span>
-                <span class="song-history-live" aria-hidden="true"></span>
-              </div>
-              <ol class="song-history-list" data-song-history>
-                <li class="song-history-placeholder">Tune in &mdash; tracks will appear here as they play.</li>
-              </ol>
             </div>
 
             <div class="live-quick-links">
               <a href="schedule.html">View Schedule</a>
               <a href="events.html">Upcoming Events</a>
-              <a href="contact.html">Send a Shoutout</a>
             </div>
           </article>
 
           <article class="radio-card">
-            <h3 class="live-embed-title">Live Feed Hub</h3>
-            <div class="feed-tabs" role="tablist" aria-label="Live feed options">
-              <button class="feed-tab-btn active" type="button" data-feed-tab-target="tiktok" role="tab" aria-selected="true">TikTok Live</button>
-              <button class="feed-tab-btn" type="button" data-feed-tab-target="radio" role="tab" aria-selected="false">Radio Widget</button>
-            </div>
-
+            <h3 class="live-embed-title">TikTok Live</h3>
             <div class="feed-panel active" data-feed-panel="tiktok">
               <a class="tiktok-live-card" href="https://www.tiktok.com/@rewinduklive/live" target="_blank" rel="noopener noreferrer">
                 <div class="tiktok-live-card-inner">
@@ -122,20 +121,6 @@
                   <svg class="tiktok-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                 </div>
               </a>
-            </div>
-
-            <div class="feed-panel" data-feed-panel="radio" hidden>
-              <iframe
-                title="RewindUK Live Radio Widget"
-                src="https://sonic.onlineaudience.co.uk/cp/widgets/player/single/?p=8264"
-                class="iframe-player"
-                data-href="stream.externalPlayerUrl"
-                loading="lazy"
-              ></iframe>
-              <p class="embed-note mt-16">
-                If the widget does not load, use the
-                <a href="https://sonic.onlineaudience.co.uk:8264/stream" target="_blank" rel="noopener noreferrer">direct stream link</a>.
-              </p>
             </div>
           </article>
         </div>

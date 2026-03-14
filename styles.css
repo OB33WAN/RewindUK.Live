@@ -696,6 +696,18 @@ footer {
   gap: 3px;
 }
 
+.widget-nowplay-frame {
+  width: 100%;
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.widget-nowplay-form {
+  display: none;
+}
+
 .current-track-label {
   color: var(--primary);
   font-size: 0.68rem;

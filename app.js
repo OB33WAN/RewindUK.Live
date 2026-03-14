@@ -12,11 +12,17 @@ const DEFAULT_CONTENT = {
 };
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+const STREAM_WIDGET_NOWPLAY_URL = "https://sonic.onlineaudience.co.uk/cp/widgets/player/nowplay.php";
+const STREAM_WIDGET_NOWPLAY_BODY = {
+  rsys: "scv26",
+  port: "8264"
+};
 const STREAM_STATS_ENDPOINTS = [
+  "https://sonic.onlineaudience.co.uk:8264/currentsong?sid=1",
   "https://sonic.onlineaudience.co.uk:8264/stats?json=1",
   "https://sonic.onlineaudience.co.uk:8264/7.html"
 ];
-const STREAM_PLAYED_URL = "https://sonic.onlineaudience.co.uk:8264/played?json=1";
+const STREAM_PLAYED_URL = "https://sonic.onlineaudience.co.uk:8264/played?sid=1&type=json";
 const TRACK_POLL_MS = 20000;
 let songHistory = [];
 let lastKnownTrack = "";
@@ -546,6 +552,13 @@ function parseTrackString(raw) {
   return { artist: "", title: clean, full: clean };
 }
 
+function decodeHtmlEntities(value) {
+  if (!value || typeof value !== "string") return value || "";
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = value;
+  return textarea.value.trim();
+}
+
 function renderTrackNow(track) {
   document.querySelectorAll("[data-current-track-title]").forEach((el) => {
     el.textContent = track.title;
@@ -558,7 +571,10 @@ function renderTrackNow(track) {
 
 function renderTrackHistory() {
   document.querySelectorAll("[data-song-history]").forEach((list) => {
-    if (!songHistory.length) return;
+    if (!songHistory.length) {
+      list.innerHTML = '<li class="song-history-placeholder">No recent tracks available yet.</li>';
+      return;
+    }
     list.innerHTML = songHistory
       .map(
         (t, i) =>
@@ -582,14 +598,25 @@ async function pollCurrentTrack() {
       let raw = "";
       if (contentType.includes("json")) {
         const data = await res.json();
-        raw = data?.streams?.[0]?.title || data?.currentsong || data?.song?.title || data?.title || "";
+        raw =
+          data?.songtitle ||
+          data?.streams?.[0]?.songtitle ||
+          data?.streams?.[0]?.title ||
+          data?.currentsong ||
+          data?.song?.title ||
+          data?.title ||
+          "";
       } else {
-        // Shoutcast v1 /7.html - comma-separated
         const text = await res.text();
-        raw = text.split(",")[6] || "";
+        if (url.includes("7.html")) {
+          // Shoutcast v1 /7.html - comma-separated
+          raw = decodeHtmlEntities(text.split(",")[6] || "");
+        } else {
+          raw = decodeHtmlEntities(text);
+        }
       }
       const track = parseTrackString(raw);
-      if (!track) return;
+      if (!track) continue;
       renderTrackNow(track);
       if (track.full !== lastKnownTrack) {
         lastKnownTrack = track.full;
@@ -597,25 +624,28 @@ async function pollCurrentTrack() {
         if (songHistory.length > 20) songHistory.pop();
         renderTrackHistory();
       }
-      return;
+      return true;
     } catch (_e) {
       // CORS or network - try next endpoint
     }
   }
+  return false;
 }
 
 async function loadInitialHistory() {
   try {
     const res = await fetch(STREAM_PLAYED_URL, { cache: "no-store" });
-    if (!res.ok) return;
+    if (!res.ok) return false;
     const data = await res.json();
-    const items = Array.isArray(data?.history)
+    const items = Array.isArray(data)
+      ? data
+      : Array.isArray(data?.history)
       ? data.history
       : Array.isArray(data?.played)
       ? data.played
       : [];
     const parsed = items
-      .map((item) => parseTrackString(item?.song?.title || item?.title || ""))
+      .map((item) => parseTrackString(item?.metadata?.tit2 || item?.song?.title || item?.title || ""))
       .filter(Boolean)
       .slice(0, 20);
     if (parsed.length && !songHistory.length) {
@@ -623,9 +653,11 @@ async function loadInitialHistory() {
       lastKnownTrack = parsed[0]?.full || "";
       renderTrackNow(parsed[0]);
       renderTrackHistory();
+      return true;
     }
+    return false;
   } catch (_e) {
-    // CORS or network - silent
+    return false;
   }
 }
 
@@ -633,6 +665,22 @@ function initTrackPolling() {
   if (!document.querySelector("[data-song-history]")) return;
   loadInitialHistory().then(pollCurrentTrack);
   window.setInterval(pollCurrentTrack, TRACK_POLL_MS);
+}
+
+function submitWidgetNowPlayingForms() {
+  document.querySelectorAll("[data-widget-nowplay-form]").forEach((form) => {
+    const cacheInput = form.querySelector("[data-widget-nowplay-cache]");
+    if (cacheInput) {
+      cacheInput.value = String(Date.now());
+    }
+    form.submit();
+  });
+}
+
+function initWidgetNowPlayingMirror() {
+  if (!document.querySelector("[data-widget-nowplay-form]")) return;
+  submitWidgetNowPlayingForms();
+  window.setInterval(submitWidgetNowPlayingForms, TRACK_POLL_MS);
 }
 
 function activateFeedTab(tabName, buttonSelector, panelSelector, buttonAttr, panelAttr) {
@@ -717,5 +765,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   initLiveFeedTabs();
   initLiveEmbedLaunch();
   initHomeLiveFeedTabs();
+  initWidgetNowPlayingMirror();
   initTrackPolling();
 });
