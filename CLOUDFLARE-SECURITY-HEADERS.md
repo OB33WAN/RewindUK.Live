@@ -1,25 +1,47 @@
-# Cloudflare Security Headers (GitHub Pages Origin)
+# Hosting Notes
 
-This project is deployed from GitHub Pages and proxied through Cloudflare.
-Header files like `_headers` are not applied by GitHub Pages.
-Set response headers in Cloudflare instead.
+This site is currently hosted on GitHub Pages.
 
-## Recommended Cloudflare setup
+The domain registration may sit with Squarespace, but the live DNS and traffic path do not currently terminate there.
 
-1. Open Cloudflare dashboard for your domain.
-2. Go to `Rules` -> `Transform Rules` -> `Modify Response Header`.
-3. Create one rule targeting `*rewinduk.live/*`.
-4. Add these response headers (set/overwrite):
+Current live path:
 
-- `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`
-- `Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.web3forms.com https://sonic.onlineaudience.co.uk https://sonic.onlineaudience.co.uk:8264; frame-src https://sonic.onlineaudience.co.uk; media-src https://sonic.onlineaudience.co.uk https://sonic.onlineaudience.co.uk:8264; form-action 'self' https://api.web3forms.com https://sonic.onlineaudience.co.uk mailto:; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests`
-- `X-Frame-Options: SAMEORIGIN`
-- `X-Content-Type-Options: nosniff`
-- `Referrer-Policy: strict-origin-when-cross-origin`
-- `Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=(), fullscreen=(self)`
+- Registrar: Squarespace
+- Authoritative DNS: Cloudflare nameservers
+- Hosting origin: GitHub Pages
 
-## Notes
+## Current blocker
 
-- Keep `security.txt` at `.well-known/security.txt` in this repo.
-- Keep Cloudflare SSL mode at `Full (strict)` if possible.
-- Enable `Always Use HTTPS` in Cloudflare.
+The custom domain is reaching GitHub Pages, but HTTPS validation is failing because the custom-domain setup is not complete end to end.
+
+Current symptoms:
+
+- `rewinduk.live` resolves to GitHub Pages IPs.
+- `www.rewinduk.live` does not exist yet.
+- HTTPS validation returns a certificate principal mismatch.
+
+## GitHub Pages custom-domain checklist
+
+1. Keep the GitHub Pages apex `A` records for `rewinduk.live` if GitHub Pages remains the host.
+2. Add a root `CNAME` file in this repo containing `rewinduk.live`.
+3. In the GitHub Pages repository settings, set the custom domain to `rewinduk.live`.
+4. Enable `Enforce HTTPS` in GitHub Pages once GitHub finishes certificate provisioning.
+5. Add a `www` DNS record if you want the `www` host to work too.
+6. If Cloudflare remains authoritative for DNS, manage the DNS records there.
+
+## Important note on headers
+
+If Cloudflare is no longer proxying traffic, old Cloudflare response-header rules will not affect the live site. Security headers must come from the active edge or origin actually serving requests.
+
+## What this repo still controls
+
+- Page markup, content, and metadata.
+- Static assets, manifest, robots, sitemap, and `.well-known/security.txt`.
+- The GitHub Pages custom-domain file `CNAME`.
+- Frontend behavior in `app.js` and styling in `styles.css`.
+
+## What this repo does not fix
+
+- Missing or incorrect DNS records.
+- GitHub Pages custom-domain settings in the repository dashboard.
+- TLS issuance timing on the active hosting platform.

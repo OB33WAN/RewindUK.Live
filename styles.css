@@ -23,6 +23,10 @@ body {
   scroll-behavior: smooth;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Space Grotesk", sans-serif;
   color: var(--text);
@@ -30,6 +34,7 @@ body {
     linear-gradient(rgba(10, 5, 16, 0.88), rgba(10, 5, 16, 0.95)),
     url("assets/dark_underground_rave_crowd_with_red_neon_lights-D2WanPXC.png") center / cover fixed;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 a {
@@ -93,6 +98,7 @@ textarea:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .brand img {
@@ -106,6 +112,7 @@ textarea:focus-visible {
   font-family: "Permanent Marker", cursive;
   letter-spacing: 0.06em;
   font-size: 1.2rem;
+  min-width: 0;
 }
 
 .brand-name span {
@@ -316,6 +323,7 @@ section.block {
   display: flex;
   align-items: center;
   gap: 14px;
+  min-width: 0;
 }
 
 .live-brand img {
@@ -1004,6 +1012,7 @@ body.live-playing .player-panel {
   padding: 32px 28px;
   position: relative;
   z-index: 1;
+  min-width: 0;
 }
 
 .tiktok-icon {
@@ -1396,8 +1405,28 @@ body.live-playing .player-panel {
     background-attachment: scroll;
   }
 
+  .container {
+    width: min(var(--container), calc(100% - 32px));
+  }
+
+  .nav-wrap {
+    position: relative;
+    min-height: 68px;
+  }
+
+  .brand img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand-name {
+    font-size: clamp(0.9rem, 4vw, 1.05rem);
+    line-height: 1.1;
+  }
+
   .nav-toggle {
     display: inline-block;
+    flex-shrink: 0;
   }
 
   .nav-links {
@@ -1426,6 +1455,27 @@ body.live-playing .player-panel {
 
   .grid-4 {
     grid-template-columns: 1fr;
+  }
+
+  .live-band,
+  .current-track-box,
+  .song-history-item,
+  .tiktok-live-card-inner {
+    align-items: flex-start;
+  }
+
+  .current-track-box,
+  .tiktok-live-card-inner {
+    flex-direction: column;
+  }
+
+  .tiktok-arrow {
+    display: none;
+  }
+
+  .current-track-cover {
+    width: 48px;
+    height: 48px;
   }
 
   .hero {
@@ -1475,6 +1525,48 @@ body.live-playing .player-panel {
 
   .nav-wrap {
     min-height: 68px;
+  }
+
+  .brand {
+    max-width: calc(100% - 88px);
+  }
+
+  .brand-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .page-head {
+    padding: 56px 0 28px;
+  }
+
+  .radio-card,
+  .panel,
+  .home-live-hub {
+    padding: 18px;
+  }
+
+  .live-bars {
+    height: 72px;
+    padding: 12px;
+  }
+
+  .song-history-item {
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .tiktok-live-card-inner {
+    padding: 22px 18px;
+  }
+
+  .tiktok-live-card-text strong {
+    font-size: 1.25rem;
+  }
+
+  .footer-meta {
+    word-break: break-word;
   }
 
   .hero {
