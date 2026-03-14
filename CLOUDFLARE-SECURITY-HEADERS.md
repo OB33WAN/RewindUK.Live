@@ -12,7 +12,7 @@ Set response headers in Cloudflare instead.
 4. Add these response headers (set/overwrite):
 
 - `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`
-- `Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.web3forms.com https://sonic.onlineaudience.co.uk; frame-src https://sonic.onlineaudience.co.uk; media-src https://sonic.onlineaudience.co.uk; form-action 'self' https://api.web3forms.com mailto:; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests`
+- `Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.web3forms.com https://sonic.onlineaudience.co.uk https://sonic.onlineaudience.co.uk:8264; frame-src https://sonic.onlineaudience.co.uk; media-src https://sonic.onlineaudience.co.uk https://sonic.onlineaudience.co.uk:8264; form-action 'self' https://api.web3forms.com https://sonic.onlineaudience.co.uk mailto:; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests`
 - `X-Frame-Options: SAMEORIGIN`
 - `X-Content-Type-Options: nosniff`
 - `Referrer-Policy: strict-origin-when-cross-origin`
