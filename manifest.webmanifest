@@ -1,0 +1,24 @@
+{
+  "name": "RewindUK Live",
+  "short_name": "RewindUK",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#ff0033",
+  "description": "London based multi genre online community radio station streaming 24/7 worldwide.",
+  "icons": [
+    {
+      "src": "assets/1000045939_1763663606731-D1ydqh02.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/1000045939_1763663606731-D1ydqh02.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

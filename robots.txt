@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /.well-known/security.txt
+
+Host: https://rewinduk.live
+
+Sitemap: https://rewinduk.live/sitemap.xml

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Listen live to RewindUK Live with underground sounds, direct stream and live player." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Live Radio - RewindUK Live" />
+    <meta property="og:description" content="Listen live to RewindUK Live with underground sounds, direct stream and live player." />
+    <meta property="og:image" content="https://rewinduk.live/assets/1000045939_1763663606731-D1ydqh02.png" />
+    <meta property="og:url" content="https://rewinduk.live/radio.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Live Radio - RewindUK Live" />
+    <meta name="twitter:description" content="Listen live to RewindUK Live with underground sounds, direct stream and live player." />
+    <meta name="twitter:image" content="https://rewinduk.live/assets/1000045939_1763663606731-D1ydqh02.png" />
+
+    <link rel="icon" type="image/png" href="assets/1000045939_1763663606731-D1ydqh02.png" />
+    <link rel="apple-touch-icon" href="assets/1000045939_1763663606731-D1ydqh02.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Live Radio - RewindUK Live</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rock+Salt&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body data-page="live">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="index.html">
+          <img src="assets/1000045939_1763663606731-D1ydqh02.png" alt="RewindUK Live Logo" />
+          <span class="brand-name">REWIND<span>UK</span> LIVE</span>
+        </a>
+        <button class="nav-toggle" data-nav-toggle type="button">Menu</button>
+        <nav class="nav-links" data-nav-links>
+          <a href="index.html">Home</a>
+          <a class="active" href="radio.html">Live</a>
+          <a href="djs.html">DJs</a>
+          <a href="schedule.html">Schedule</a>
+          <a href="events.html">Events</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="page-head">
+        <div class="container">
+          <h1 data-text="site.home.liveTitle">Live Radio</h1>
+          <p>Underground radio energy, broadcasting 24/7 worldwide.</p>
+        </div>
+      </section>
+
+      <section class="block pt-40">
+        <div class="container radio-wrap">
+          <article class="radio-card player-panel">
+            <div class="live-top-row">
+              <div class="badge"><span class="pulse"></span>Now Playing</div>
+              <span class="live-chip" data-live-chip-status>Global Stream</span>
+            </div>
+            <h2>RewindUK Live</h2>
+            <p class="lead lead-left lead-no-margin">Underground Radio • 24/7 • House, UKG, DnB and beyond</p>
+            <div class="live-ticker" aria-live="polite">
+              <strong>On Air:</strong>
+              <span data-live-ticker>Underground selections streaming now</span>
+            </div>
+            <div class="live-bars" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="stream-status">TikTok Live + Radio Feed Ready</div>
+            <div class="btn-row btn-row-left">
+              <button class="btn btn-primary" data-open-live-embed type="button">Open TikTok Live</button>
+            </div>
+            <div class="live-quick-links">
+              <a href="schedule.html">View Schedule</a>
+              <a href="events.html">Upcoming Events</a>
+              <a href="contact.html">Send a Shoutout</a>
+            </div>
+            <p class="now-playing">Connected to RewindUK Live stream server.</p>
+          </article>
+
+          <article class="radio-card">
+            <h3 class="live-embed-title">Live Feed Hub</h3>
+            <div class="feed-tabs" role="tablist" aria-label="Live feed options">
+              <button class="feed-tab-btn active" type="button" data-feed-tab-target="tiktok" role="tab" aria-selected="true">TikTok Live</button>
+              <button class="feed-tab-btn" type="button" data-feed-tab-target="radio" role="tab" aria-selected="false">Radio Widget</button>
+            </div>
+
+            <div class="feed-panel active" data-feed-panel="tiktok">
+              <div class="live-frame-wrap">
+                <iframe
+                  title="RewindUK Live TikTok"
+                  src="https://www.tiktok.com/@rewinduklive/live"
+                  class="iframe-player iframe-player-live"
+                  loading="lazy"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allow="autoplay; encrypted-media"
+                ></iframe>
+              </div>
+              <p class="embed-note mt-16">
+                TikTok may block some in-app or browser embeds. If this panel is blank, open
+                <a href="https://www.tiktok.com/@rewinduklive/live" target="_blank" rel="noopener noreferrer">@rewinduklive live directly</a>.
+              </p>
+            </div>
+
+            <div class="feed-panel" data-feed-panel="radio" hidden>
+              <iframe
+                title="RewindUK Live Radio Widget"
+                src="https://sonic.onlineaudience.co.uk/cp/widgets/player/single/?p=8264"
+                class="iframe-player"
+                data-href="stream.externalPlayerUrl"
+                loading="lazy"
+              ></iframe>
+              <p class="embed-note mt-16">
+                If the widget does not load, use the
+                <a href="https://sonic.onlineaudience.co.uk:8264/stream" target="_blank" rel="noopener noreferrer">direct stream link</a>.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="container live-highlights mt-24">
+          <article class="panel">
+            <h3>Why Lock In?</h3>
+            <p class="mt-8 text-muted">Resident talent, guest takeovers, and raw underground selections every week.</p>
+          </article>
+          <article class="panel">
+            <h3>Broadcasting 24/7</h3>
+            <p class="mt-8 text-muted">When live shows end, the stream continues with nonstop underground mixes.</p>
+          </article>
+          <article class="panel">
+            <h3>Community First</h3>
+            <p class="mt-8 text-muted">Tap in through socials, send demos, and connect with the RewindUK Live family.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-meta">
+        <div>© <span data-year></span> RewindUK Live. All rights reserved.</div>
+        <div class="footer-legal-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="cookies.html">Cookies</a>
+          <a href="terms.html">Terms</a>
+          <a href="gdpr.html">GDPR</a>
+        </div>
+        <div class="mt-6">Created by <a href="https://octopye.com" target="_blank" rel="noopener noreferrer">Octopye Designs</a></div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+

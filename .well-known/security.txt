@@ -1,0 +1,7 @@
+Contact: mailto:contact@rewinduk.live
+Contact: https://rewinduk.live/contact.html
+Expires: 2027-03-14T23:59:00.000Z
+Preferred-Languages: en
+Canonical: https://rewinduk.live/.well-known/security.txt
+Policy: https://rewinduk.live/privacy.html
+Acknowledgments: https://rewinduk.live/

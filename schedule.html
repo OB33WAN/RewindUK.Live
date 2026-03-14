@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Browse the weekly RewindUK Live schedule and catch every underground show." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Schedule - RewindUK Live" />
+    <meta property="og:description" content="Browse the weekly RewindUK Live schedule and catch every underground show." />
+    <meta property="og:image" content="https://rewinduk.live/assets/1000045939_1763663606731-D1ydqh02.png" />
+    <meta property="og:url" content="https://rewinduk.live/schedule.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Schedule - RewindUK Live" />
+    <meta name="twitter:description" content="Browse the weekly RewindUK Live schedule and catch every underground show." />
+    <meta name="twitter:image" content="https://rewinduk.live/assets/1000045939_1763663606731-D1ydqh02.png" />
+
+    <link rel="icon" type="image/png" href="assets/1000045939_1763663606731-D1ydqh02.png" />
+    <link rel="apple-touch-icon" href="assets/1000045939_1763663606731-D1ydqh02.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Schedule - RewindUK Live</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rock+Salt&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body data-page="schedule">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="index.html">
+          <img src="assets/1000045939_1763663606731-D1ydqh02.png" alt="RewindUK Live Logo" />
+          <span class="brand-name">REWIND<span>UK</span> LIVE</span>
+        </a>
+        <button class="nav-toggle" data-nav-toggle type="button">Menu</button>
+        <nav class="nav-links" data-nav-links>
+          <a href="index.html">Home</a>
+          <a href="radio.html">Live</a>
+          <a href="djs.html">DJs</a>
+          <a class="active" href="schedule.html">Schedule</a>
+          <a href="events.html">Events</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="page-head">
+        <div class="container">
+          <h1 data-text="site.home.scheduleTitle">Weekly Schedule</h1>
+          <p>Check out our weekly DJ timetable and lock in with your favorite shows.</p>
+        </div>
+      </section>
+
+      <section class="block pt-40">
+        <div class="container">
+          <div class="tabs" data-schedule-tabs>
+            <button class="tab-btn active" type="button" data-day="all">All</button>
+            <button class="tab-btn" type="button" data-day="thursday">Thu</button>
+            <button class="tab-btn" type="button" data-day="friday">Fri</button>
+            <button class="tab-btn" type="button" data-day="saturday">Sat</button>
+            <button class="tab-btn" type="button" data-day="sunday">Sun</button>
+          </div>
+
+          <div class="schedule-items" data-schedule-items>
+            <article class="schedule-item" data-schedule-item="thursday">
+              <h4>Thursday • 18:00 - 21:00 • Underground Journey</h4>
+              <p>Smokoloko DJ • Electronic, House, Underground</p>
+            </article>
+            <article class="schedule-item" data-schedule-item="friday">
+              <h4>Friday • Coming Soon • Atmospheric Sets</h4>
+              <p>Orrin • Afro Tech, Minimal</p>
+            </article>
+            <article class="schedule-item" data-schedule-item="saturday">
+              <h4>Saturday • 20:00 • Special Guest Slot</h4>
+              <p>DJ Steadyi • UKG, House, Grime</p>
+            </article>
+            <article class="schedule-item" data-schedule-item="sunday">
+              <h4>Sunday • 17:00 - 20:00 • Vibrant Mix</h4>
+              <p>Rawdeejay • R&B, Bashment, Reggae, UKG</p>
+            </article>
+          </div>
+
+          <div class="panel mt-22">
+            <h3 data-text="schedule.offAirTitle">When we are not live</h3>
+            <p class="mt-8 text-muted" data-text="schedule.offAirDescription">
+              RewindUK Live runs a continuous underground mix featuring Deep House, UKG, and Drum and Bass 24/7.
+            </p>
+            <div class="mt-18"><a class="btn btn-primary" href="radio.html" data-text="schedule.offAirCta">Listen to 24/7 Mix</a></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-meta">
+        <div>© <span data-year></span> RewindUK Live. All rights reserved.</div>
+        <div class="footer-legal-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="cookies.html">Cookies</a>
+          <a href="terms.html">Terms</a>
+          <a href="gdpr.html">GDPR</a>
+        </div>
+        <div class="mt-6">Created by <a href="https://octopye.com" target="_blank" rel="noopener noreferrer">Octopye Designs</a></div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+

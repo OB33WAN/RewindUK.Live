@@ -1,0 +1,133 @@
+{
+  "site": {
+    "name": "RewindUK Live",
+    "brand": "REWINDUK LIVE",
+    "tagline": "London Based Multi Genre Online Community Radio Station Streaming 24/7 Worldwide. The underground sound of the UK.",
+    "hero": {
+      "badge": "Live 24/7",
+      "title": "REWINDUK",
+      "description": "London Based Multi Genre Online Community Radio Station. Streaming 24/7 Worldwide. The underground sound of the UK.",
+      "primaryCta": "Listen Live",
+      "secondaryCta": "Watch Video"
+    },
+    "home": {
+      "liveTitle": "Live Radio",
+      "liveDescription": "Tune in to the underground sound",
+      "djsTitle": "Our DJs",
+      "djsDescription": "The best talent in the underground scene.",
+      "scheduleTitle": "The Schedule",
+      "scheduleDescription": "Do not miss a beat. Lock in to your favorite shows throughout the week.",
+      "socialTitle": "Find us on Socials",
+      "socialDescription": "Join the community, get shoutouts, and stay updated.",
+      "contactTitle": "Get in Touch",
+      "contactDescription": "Want to join the roster? Advertise with us? Or just send a demo?"
+    }
+  },
+  "stream": {
+    "url": "https://sonic.onlineaudience.co.uk:8264/stream",
+    "externalPlayerUrl": "https://sonic.onlineaudience.co.uk/cp/widgets/player/single/?p=8264",
+    "statusReady": "READY TO PLAY",
+    "statusLive": "LIVE - ON AIR",
+    "statusUnavailable": "Stream unavailable"
+  },
+  "navigation": [
+    { "label": "Home", "href": "index.html" },
+    { "label": "Live", "href": "radio.html" },
+    { "label": "DJs", "href": "djs.html" },
+    { "label": "Schedule", "href": "schedule.html" },
+    { "label": "Events", "href": "events.html" },
+    { "label": "Contact", "href": "contact.html" }
+  ],
+  "djs": [
+    {
+      "name": "Smokoloko DJ",
+      "genre": "Electronic • House",
+      "bio": "Thursday specialist for deep underground journeys.",
+      "image": "assets/IMG-20251120-WA0011_1763677064856-BvGGHEVd.jpg"
+    },
+    {
+      "name": "Rawdeejay",
+      "genre": "R&B • Bashment • UKG",
+      "bio": "Sunday selector bringing smooth vocals and energetic UK rhythms.",
+      "image": "assets/IMG-20251012-WA0033_1763677064843-JnVUMy9f.jpg"
+    },
+    {
+      "name": "Orrin",
+      "genre": "Afro Tech • Minimal",
+      "bio": "Atmospheric and hypnotic sounds for late underground sessions.",
+      "image": "assets/IMG-20251012-WA0014_1763677064867-BMR3sRDy.jpg"
+    },
+    {
+      "name": "DJ Steadyi",
+      "genre": "UKG • House • Grime",
+      "bio": "Raw UK street sound with garage classics and grime energy.",
+      "image": "assets/urban_dj_street_styl_3ed7dd59-ncjI3-wL.jpg"
+    }
+  ],
+  "schedule": {
+    "upNext": [
+      { "day": "Thursday", "dj": "Smokoloko DJ", "time": "18:00" },
+      { "day": "Saturday", "dj": "DJ Steadyi", "time": "20:00" },
+      { "day": "Sunday", "dj": "Rawdeejay", "time": "17:00" }
+    ],
+    "shows": [
+      {
+        "day": "Thursday",
+        "time": "18:00 - 21:00",
+        "show": "Underground Journey",
+        "dj": "Smokoloko DJ",
+        "genre": "Electronic, House, Underground"
+      },
+      {
+        "day": "Friday",
+        "time": "Coming Soon",
+        "show": "Atmospheric Sets",
+        "dj": "Orrin",
+        "genre": "Afro Tech, Minimal"
+      },
+      {
+        "day": "Saturday",
+        "time": "20:00",
+        "show": "Special Guest Slot",
+        "dj": "DJ Steadyi",
+        "genre": "UKG, House, Grime"
+      },
+      {
+        "day": "Sunday",
+        "time": "17:00 - 20:00",
+        "show": "Vibrant Mix",
+        "dj": "Rawdeejay",
+        "genre": "R&B, Bashment, Reggae, UKG"
+      }
+    ],
+    "offAirTitle": "When we are not live",
+    "offAirDescription": "RewindUK Live runs a continuous underground mix featuring Deep House, UKG, and Drum and Bass 24/7.",
+    "offAirCta": "Listen to 24/7 Mix"
+  },
+  "events": {
+    "title": "Events",
+    "description": "Catch RewindUK Live showcases, takeovers, and community sessions.",
+    "items": []
+  },
+  "socials": [
+    { "name": "TikTok", "short": "TT", "url": "https://tiktok.com/@rewinduklive" },
+    { "name": "Instagram", "short": "IG", "url": "https://instagram.com/rewinduklive" },
+    { "name": "Facebook", "short": "FB", "url": "https://facebook.com/rewindukradio" },
+    { "name": "Linktree", "short": "LT", "url": "https://linktr.ee/rewinduklive" }
+  ],
+  "contact": {
+    "title": "Get in Touch",
+    "description": "Want to join the roster, advertise, or send a demo? Drop us a message.",
+    "email": "contact@rewinduk.live",
+    "formTitle": "Contact Form",
+    "linksTitle": "Direct Links"
+  },
+  "footer": {
+    "navigationTitle": "Navigation",
+    "connectTitle": "Connect",
+    "rights": "RewindUK Live. All rights reserved.",
+    "creditLabel": "Created by",
+    "creditName": "BizzyOPS",
+    "creditUrl": "https://bizzyops.com"
+  }
+}
