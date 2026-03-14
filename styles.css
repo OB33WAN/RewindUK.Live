@@ -660,6 +660,183 @@ footer {
   overflow: hidden;
 }
 
+/* ── Current Track Box ── */
+.current-track-box {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.current-track-cover {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255, 0, 51, 0.2), rgba(185, 0, 70, 0.12));
+  border: 1px solid rgba(255, 0, 51, 0.25);
+  display: grid;
+  place-items: center;
+  color: var(--primary);
+}
+
+.current-track-cover svg {
+  width: 26px;
+  height: 26px;
+}
+
+.current-track-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.current-track-label {
+  color: var(--primary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.current-track-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+  display: block;
+}
+
+.current-track-artist {
+  font-size: 0.84rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* ── Play Button ── */
+.player-play-btn {
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  padding: 0 28px;
+}
+
+/* ── Song History ── */
+.song-history {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.song-history-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.song-history-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  animation: pulse 1.4s infinite;
+}
+
+.song-history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 340px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+.song-history-placeholder {
+  padding: 18px 14px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.song-history-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.18s ease;
+}
+
+.song-history-item:last-child {
+  border-bottom: 0;
+}
+
+.song-history-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.song-history-num {
+  width: 20px;
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.28);
+  text-align: right;
+}
+
+.song-history-item:first-child .song-history-num {
+  color: var(--primary);
+}
+
+.song-history-detail {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.song-history-detail strong {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #e8e8ea;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.song-history-detail span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
 .live-bars span {
   flex: 1;
   min-width: 6px;
@@ -780,6 +957,98 @@ body.live-playing .player-panel {
 
 .iframe-player-live {
   min-height: 620px;
+}
+
+.tiktok-live-card {
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(18, 8, 30, 0.95), rgba(10, 5, 16, 0.98));
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+  position: relative;
+}
+
+.tiktok-live-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(255, 0, 79, 0.15), transparent 65%),
+              radial-gradient(ellipse at 80% 50%, rgba(0, 242, 234, 0.12), transparent 65%);
+  pointer-events: none;
+}
+
+.tiktok-live-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 1px rgba(255, 0, 79, 0.3), 0 20px 48px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.tiktok-live-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 32px 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.tiktok-icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  color: #fff;
+  filter: drop-shadow(0 0 14px rgba(255, 0, 79, 0.6));
+}
+
+.tiktok-live-card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tiktok-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 0, 51, 0.18);
+  border: 1px solid rgba(255, 0, 51, 0.45);
+  color: #ff4d6d;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.tiktok-live-card-text strong {
+  font-family: "Permanent Marker", cursive;
+  font-size: 1.55rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+}
+
+.tiktok-live-card-text span:last-child {
+  color: #a1a1aa;
+  font-size: 0.9rem;
+}
+
+.tiktok-arrow {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.tiktok-live-card:hover .tiktok-arrow {
+  color: #fff;
+  transform: translateX(4px);
 }
 
 .live-highlights {

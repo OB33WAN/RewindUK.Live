@@ -12,6 +12,14 @@ const DEFAULT_CONTENT = {
 };
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+const STREAM_STATS_ENDPOINTS = [
+  "https://sonic.onlineaudience.co.uk:8264/stats?json=1",
+  "https://sonic.onlineaudience.co.uk:8264/7.html"
+];
+const STREAM_PLAYED_URL = "https://sonic.onlineaudience.co.uk:8264/played?json=1";
+const TRACK_POLL_MS = 20000;
+let songHistory = [];
+let lastKnownTrack = "";
 const LIVE_TICKER_MESSAGES = [
   "Underground selections streaming now",
   "Next up: deep house, UKG, and bassline pressure",
@@ -527,6 +535,106 @@ function initLiveTicker() {
   }, 4500);
 }
 
+function parseTrackString(raw) {
+  if (!raw || typeof raw !== "string") return null;
+  const clean = raw.trim();
+  if (!clean || clean.toLowerCase() === "unknown" || clean === "-") return null;
+  const sep = clean.indexOf(" - ");
+  if (sep > 0) {
+    return { artist: clean.slice(0, sep).trim(), title: clean.slice(sep + 3).trim(), full: clean };
+  }
+  return { artist: "", title: clean, full: clean };
+}
+
+function renderTrackNow(track) {
+  document.querySelectorAll("[data-current-track-title]").forEach((el) => {
+    el.textContent = track.title;
+  });
+  document.querySelectorAll("[data-current-track-artist]").forEach((el) => {
+    el.textContent = track.artist || "";
+    el.hidden = !track.artist;
+  });
+}
+
+function renderTrackHistory() {
+  document.querySelectorAll("[data-song-history]").forEach((list) => {
+    if (!songHistory.length) return;
+    list.innerHTML = songHistory
+      .map(
+        (t, i) =>
+          `<li class="song-history-item">` +
+          `<span class="song-history-num">${i + 1}</span>` +
+          `<div class="song-history-detail">` +
+          `<strong>${escapeHtml(t.title)}</strong>` +
+          (t.artist ? `<span>${escapeHtml(t.artist)}</span>` : "") +
+          `</div></li>`
+      )
+      .join("");
+  });
+}
+
+async function pollCurrentTrack() {
+  for (const url of STREAM_STATS_ENDPOINTS) {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) continue;
+      const contentType = res.headers.get("content-type") || "";
+      let raw = "";
+      if (contentType.includes("json")) {
+        const data = await res.json();
+        raw = data?.streams?.[0]?.title || data?.currentsong || data?.song?.title || data?.title || "";
+      } else {
+        // Shoutcast v1 /7.html - comma-separated
+        const text = await res.text();
+        raw = text.split(",")[6] || "";
+      }
+      const track = parseTrackString(raw);
+      if (!track) return;
+      renderTrackNow(track);
+      if (track.full !== lastKnownTrack) {
+        lastKnownTrack = track.full;
+        songHistory.unshift(track);
+        if (songHistory.length > 20) songHistory.pop();
+        renderTrackHistory();
+      }
+      return;
+    } catch (_e) {
+      // CORS or network - try next endpoint
+    }
+  }
+}
+
+async function loadInitialHistory() {
+  try {
+    const res = await fetch(STREAM_PLAYED_URL, { cache: "no-store" });
+    if (!res.ok) return;
+    const data = await res.json();
+    const items = Array.isArray(data?.history)
+      ? data.history
+      : Array.isArray(data?.played)
+      ? data.played
+      : [];
+    const parsed = items
+      .map((item) => parseTrackString(item?.song?.title || item?.title || ""))
+      .filter(Boolean)
+      .slice(0, 20);
+    if (parsed.length && !songHistory.length) {
+      songHistory = parsed;
+      lastKnownTrack = parsed[0]?.full || "";
+      renderTrackNow(parsed[0]);
+      renderTrackHistory();
+    }
+  } catch (_e) {
+    // CORS or network - silent
+  }
+}
+
+function initTrackPolling() {
+  if (!document.querySelector("[data-song-history]")) return;
+  loadInitialHistory().then(pollCurrentTrack);
+  window.setInterval(pollCurrentTrack, TRACK_POLL_MS);
+}
+
 function activateFeedTab(tabName, buttonSelector, panelSelector, buttonAttr, panelAttr) {
   const buttons = document.querySelectorAll(buttonSelector);
   const panels = document.querySelectorAll(panelSelector);
@@ -609,4 +717,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   initLiveFeedTabs();
   initLiveEmbedLaunch();
   initHomeLiveFeedTabs();
+  initTrackPolling();
 });
