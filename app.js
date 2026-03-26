@@ -24,6 +24,7 @@ const STREAM_STATS_ENDPOINTS = [
 ];
 const STREAM_PLAYED_URL = "https://sonic.onlineaudience.co.uk:8264/played?sid=1&type=json";
 const TRACK_POLL_MS = 20000;
+const STREAM_PLAY_STATE_KEY = "rewinduk.stream.playing";
 let songHistory = [];
 let lastKnownTrack = "";
 const LIVE_TICKER_MESSAGES = [
@@ -35,6 +36,38 @@ const LIVE_TICKER_MESSAGES = [
 
 let stationAudio = null;
 let siteContent = null;
+
+function saveStreamPlayState(isPlaying) {
+  try {
+    window.localStorage.setItem(STREAM_PLAY_STATE_KEY, isPlaying ? "1" : "0");
+  } catch (_error) {
+    // Ignore storage errors in private browsing modes.
+  }
+}
+
+function loadStreamPlayState() {
+  try {
+    return window.localStorage.getItem(STREAM_PLAY_STATE_KEY) === "1";
+  } catch (_error) {
+    return false;
+  }
+}
+
+function ensureMiniPlayer() {
+  if (document.querySelector(".mini-player")) return;
+
+  const miniPlayer = document.createElement("aside");
+  miniPlayer.className = "mini-player";
+  miniPlayer.innerHTML = `
+    <div class="mini-player-grow">
+      <strong data-stream-status>Ready to play</strong>
+      <small>RewindUK Live</small>
+    </div>
+    <button class="btn btn-primary" data-audio-toggle data-play-text="Play" data-pause-text="Pause" type="button">Play</button>
+  `;
+
+  document.body.appendChild(miniPlayer);
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -378,13 +411,21 @@ function initAudioPlayer() {
   const streamUrl = siteContent?.stream?.url || DEFAULT_CONTENT.stream.url;
   const externalPlayerUrl = siteContent?.stream?.externalPlayerUrl || DEFAULT_CONTENT.stream.externalPlayerUrl;
   const unavailableText = siteContent?.stream?.statusUnavailable || DEFAULT_CONTENT.stream.statusUnavailable;
+  const shouldResumeAfterNavigation = loadStreamPlayState();
 
   stationAudio = new Audio(streamUrl);
   stationAudio.preload = "none";
 
-  stationAudio.addEventListener("playing", updateAudioUI);
-  stationAudio.addEventListener("pause", updateAudioUI);
+  stationAudio.addEventListener("playing", () => {
+    saveStreamPlayState(true);
+    updateAudioUI();
+  });
+  stationAudio.addEventListener("pause", () => {
+    saveStreamPlayState(false);
+    updateAudioUI();
+  });
   stationAudio.addEventListener("error", () => {
+    saveStreamPlayState(false);
     document.querySelectorAll("[data-stream-status]").forEach((el) => {
       el.textContent = unavailableText;
     });
@@ -404,6 +445,13 @@ function initAudioPlayer() {
       updateAudioUI();
     });
   });
+
+  if (shouldResumeAfterNavigation) {
+    stationAudio.play().catch(() => {
+      saveStreamPlayState(false);
+      updateAudioUI();
+    });
+  }
 
   updateAudioUI();
 }
@@ -756,6 +804,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   initMenu();
   initYear();
+  ensureMiniPlayer();
   initAudioPlayer();
   initScheduleTabs();
   initContactForm();
